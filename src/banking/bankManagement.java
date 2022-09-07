@@ -66,7 +66,8 @@ public class bankManagement { // these class provides all
 				int ch = 5;
 				int amt = 0;
 				int acNo = rs.getInt("ac_no");
-				;
+				//int balance= rs.getInt("balance");
+				
 				
 				while (true) {
 					try {
@@ -94,9 +95,22 @@ public class bankManagement { // these class provides all
 
 							System.out.print("Enter Amount:");
 							amt = Integer.parseInt(sc.readLine());
-							bankManagement.Withdraw(amt);
+							System.out.print("Enter Account Number:");
+							acNo = Integer.parseInt(sc.readLine());
+							bankManagement.Withdraw(acNo,amt);
+							
 							
 						}
+						else if (ch == 4) {
+
+							System.out.print("Enter Amount:");
+							amt = Integer.parseInt(sc.readLine());
+							System.out.print("Enter Account Number:");
+							acNo = Integer.parseInt(sc.readLine());
+							bankManagement.Deposit(acNo,amt);
+							
+						}
+						
 						else if (ch == 5) {
 							break;
 						}
@@ -155,54 +169,93 @@ public class bankManagement { // these class provides all
 	
 	
 	//Withdraw
-	public static void Withdraw(int amt) throws SQLException
+	public static boolean Withdraw(int acNo,int amt) throws SQLException
 	{
-		
-		try {
-			
-            sql = "update customer set balance=balance-"+ amt;
-            
-            
- 
-			PreparedStatement ps= con.prepareStatement(sql);
-			
-			ResultSet rs = ps.executeQuery();
-			 if (rs.next()) {
-	                if (rs.getInt("balance") < amt) {
-	                    System.out.println("Insufficient Balance!");
-	                    
-	                    
-	                }
-	            }
-			 Statement st = con.createStatement();
-			 if (st.executeUpdate(sql) == 1) {
-	                System.out.println("Amount Withdrawed!");
-	            }
-			
-			
-			System.out.println(
-				"-----------------------------------------------------------");
-			System.out.printf("%12s %10s %10s\n",
-							"Account No", "Name","Balance");
-
-			
-
-			while (rs.next()) {
-				System.out.printf("%12d %10s %10d.00\n",
-								rs.getInt("ac_no"),
-								rs.getString("cname"),
-								rs.getInt("balance"));
-			}
-			System.out.println(
-				"-----------------------------------------------------------\n");
-			
+		if (acNo== NULL || amt == NULL) {
+            System.out.println("All Fields Required!");
+            return false;
 		}
-		catch (Exception e) {
-            e.printStackTrace();
+		
             
+            try {
+                con.setAutoCommit(false);
+                sql = "select * from customer where ac_no="+ acNo;
+                PreparedStatement ps= con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+     
+                if (rs.next()) {
+                    if (rs.getInt("balance") < amt) {
+                        System.out.println(
+                            "Insufficient Balance!");
+                        return false;
+                    }
+                }
+     
+                Statement st = con.createStatement();
+     
+                // debit
+                con.setSavepoint();
+     
+                sql = "update customer set balance=balance-"+ amt + " where ac_no=" + acNo;
+                if (st.executeUpdate(sql) == 1) {
+                    System.out.println("Amount Withdrawn!");
+                }
+     
+                
+     
+                con.commit();
+                return true;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                con.rollback();
+            }
+            // return
+            return false;
+        
+       }
+	public static boolean Deposit(int acNo,int amt) throws SQLException
+	{
+		if (acNo== NULL || amt == NULL) {
+            System.out.println("All Fields Required!");
+            return false;
+		}
+		
             
-        }
-       
+            try {
+                con.setAutoCommit(false);
+                /*sql = "select * from customer where ac_no="+ acNo;
+                PreparedStatement ps= con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    if (rs.getInt("balance") < amt) {
+                        System.out.println("Insufficient Balance!");
+                        return false;
+                    }
+                }*/
+               
+                Statement st = con.createStatement();
+                con.setSavepoint();
+     
+                sql = "update customer set balance=balance+"+ amt + " where ac_no=" + acNo;
+                if (st.executeUpdate(sql) == 1) {
+                    System.out.println("Amount Deposited!");
+                }
+     
+                
+     
+                con.commit();
+                return true;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                con.rollback();
+            }
+            // return
+            return false;
+        
+       }
 	}
-	
-}
+
+
