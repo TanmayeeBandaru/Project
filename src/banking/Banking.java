@@ -18,64 +18,53 @@ public class Banking {
 
 		while (true) {
 			System.out.println(
-				"\n ->|| Welcome to InBank ||<- \n");
+				"\n || Welcome ||\n");
 			System.out.println("1)Create Account");
 			System.out.println("2)Login Account");
 
 			try {
-				System.out.print("\n Enter Input:"); //user input
+				System.out.print("\n Enter Input:"); 
 				ch = Integer.parseInt(sc.readLine());
 
 				switch (ch) {
 				case 1:
 					try {
-						System.out.print(
-							"Enter Unique UserName:");
+						System.out.print("Enter Unique UserName:");
 						name = sc.readLine();
-						System.out.print(
-							"Enter New Password:");
-						pass_code = Integer.parseInt(
-							sc.readLine());
+						System.out.print("Enter New Password:");
+						pass_code = Integer.parseInt(sc.readLine());
 
 						if (bankManagement.createAccount(
 								name, pass_code)) {
-							System.out.println(
-								"MSG : Account Created Successfully!\n");
+							System.out.println("Account Created Successfully!\n");
 						}
 						else {
-							System.out.println(
-								"ERR : Account Creation Failed!\n");
+							System.out.println("ERROR : Account Creation Failed!\n");
 						}
 					}
 					catch (Exception e) {
-						System.out.println(
-							" ERR : Enter Valid Data::Insertion Failed!\n");
+						System.out.println(" ERROR : Enter Valid Data::Insertion Failed!\n");
 					}
 					break;
 
 				case 2:
 					try {
-						System.out.print(
-							"Enter UserName:");
+						System.out.print("Enter UserName: ");
 						name = sc.readLine();
-						System.out.print(
-							"Enter Password:");
+						System.out.print("Enter Password: ");
 						pass_code = Integer.parseInt(
 							sc.readLine());
 
 						if (bankManagement.loginAccount(
 								name, pass_code)) {
-							System.out.println(
-								"MSG : Logout Successfully!\n");
+							System.out.println("Logout Successfull!\n");
 						}
 						else {
-							System.out.println(
-								"ERR : login Failed!\n");
+							System.out.println("ERROR : Login Failed!\n");
 						}
 					}
 					catch (Exception e) {
-						System.out.println(
-							" ERR : Enter Valid Data::Login Failed!\n");
+						System.out.println(" ERROR : Enter Valid Data::Login Failed!\n");
 					}
 
 					break;
@@ -85,8 +74,7 @@ public class Banking {
 				}
 
 				if (ch == 5) {
-					System.out.println(
-						"Exited Successfully!\n\n Thank You :)");
+					System.out.println("Exited Successfully!\n\n Thank You :)");
 					break;
 				}
 			}

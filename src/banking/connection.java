@@ -12,13 +12,11 @@ public class connection {
 			
 			String mysqlJDBCDriver
 				= "com.mysql.cj.jdbc.Driver"; //jdbc driver
-			String url
-				= "jdbc:mysql://localhost:3306/mydata"; //mysql url
+			String url= "jdbc:mysql://localhost:3306/mydata"; //mysql url
 			String user = "root";	 //mysql username
 			String pass = "Srirama#1303"; //mysql passcode
 			Class.forName(mysqlJDBCDriver);
-			con = DriverManager.getConnection(url, user,
-											pass);
+			con = DriverManager.getConnection(url, user,pass);
 		}
 		catch (Exception e) {
 			System.out.println("Connection Failed!");
