@@ -31,6 +31,7 @@ public class bankManagement { // these class provides all
 
 			if (st.executeUpdate(sql) == 1) {
 				//System.out.println(name + ", Now You Can Login!");
+				
 				return true;
 			}
 
@@ -69,8 +70,9 @@ public class bankManagement { // these class provides all
 				while (true) {
 					try {
 						System.out.println("Hello, "+ rs.getString("cname"));
+						System.out.printf("Your Account number is "+rs.getInt("ac_no"));
 						
-						System.out.println("1)View Balance");
+						System.out.println("\n1)View Balance");
 						System.out.println("2)Withdraw");
 						System.out.println("3)Deposit");
 						System.out.println("4)LogOut");
@@ -86,18 +88,28 @@ public class bankManagement { // these class provides all
 
 							System.out.print("Enter Account Number:");
 							acNo = Integer.parseInt(sc.readLine());
+							if(acNo== rs.getInt("ac_no")) {
 							System.out.print("Enter Amount:");
 							amt = Integer.parseInt(sc.readLine());
 							bankManagement.Withdraw(acNo,amt);
+							}
+							else {
+								System.out.println("Error: Incorrect Account number");
+							}
 						
 						}
 						else if (ch == 3) {
 
+							System.out.print("Enter your Account Number:");
+							acNo = Integer.parseInt(sc.readLine());
+							if(acNo== rs.getInt("ac_no")) {
 							System.out.print("Enter Amount:");
 							amt = Integer.parseInt(sc.readLine());
-							System.out.print("Enter Account Number:");
-							acNo = Integer.parseInt(sc.readLine());
 							bankManagement.Deposit(acNo,amt);
+							}
+							else {
+								System.out.println("Error: Incorrect Account number");
+							}
 							
 						}
 						
