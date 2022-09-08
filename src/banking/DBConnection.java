@@ -3,7 +3,7 @@ package banking;
 import java.sql.Connection;
 import java.sql.DriverManager;
 // Global connection Class
-public class connection {
+public class DBConnection {
 	static Connection con; // Global Connection Object
 	public static Connection getConnection()
 	{

@@ -13,12 +13,10 @@ public class Banking {
 			new InputStreamReader(System.in));
 		String name = "";
 		int pass_code;
-		int ac_no;
 		int ch;
 
 		while (true) {
-			System.out.println(
-				"\n || Welcome ||\n");
+			System.out.println("\n || Welcome to the BANK ||\n");
 			System.out.println("1)Create Account");
 			System.out.println("2)Login Account");
 
@@ -34,16 +32,17 @@ public class Banking {
 						System.out.print("Enter New Password:");
 						pass_code = Integer.parseInt(sc.readLine());
 
-						if (bankManagement.createAccount(
-								name, pass_code)) {
+						if (bankManagement.createAccount(name, pass_code)) {
 							System.out.println("Account Created Successfully!\n");
+							System.out.println(name + ", Now You Can Login!");
+							
 						}
 						else {
-							System.out.println("ERROR : Account Creation Failed!\n");
+							System.out.println("ERROR: Account Creation Failed!\n");
 						}
 					}
 					catch (Exception e) {
-						System.out.println(" ERROR : Enter Valid Data::Insertion Failed!\n");
+						System.out.println(" ERROR: Enter Valid Data::Insertion Failed!\n");
 					}
 					break;
 
@@ -55,8 +54,7 @@ public class Banking {
 						pass_code = Integer.parseInt(
 							sc.readLine());
 
-						if (bankManagement.loginAccount(
-								name, pass_code)) {
+						if (bankManagement.loginAccount(name, pass_code)) {
 							System.out.println("Logout Successfull!\n");
 						}
 						else {
