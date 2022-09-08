@@ -9,15 +9,15 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 
-public class bankManagement { // these class provides all
-							// bank method
+public class bankManagement { 
 
 	private static final int NULL = 0;
 
 	static Connection con = DBConnection.getConnection();
 	static String sql = "";
 	public static boolean
-	createAccount(String name,int passCode) // create account function
+	// create account 
+	createAccount(String name,int passCode) 
 	{
 		try {
 			
@@ -30,8 +30,6 @@ public class bankManagement { // these class provides all
 			sql = "INSERT INTO customer(cname,balance,pass_code) values('"+ name + "',1000," + passCode + ")";
 
 			if (st.executeUpdate(sql) == 1) {
-				//System.out.println(name + ", Now You Can Login!");
-				
 				return true;
 			}
 
@@ -44,7 +42,8 @@ public class bankManagement { // these class provides all
 		}
 		return false;
 	}
-	public static boolean loginAccount(String name, int passCode) // login method
+	// login
+	public static boolean loginAccount(String name, int passCode) 
 	{
 		try {
 			
@@ -64,19 +63,16 @@ public class bankManagement { // these class provides all
 				int ch = 4;
 				int amt = 0;
 				int acNo = rs.getInt("ac_no");
-				//int balance= rs.getInt("balance");
-				
 				
 				while (true) {
 					try {
 						System.out.println("Hello, "+ rs.getString("cname"));
 						System.out.printf("Your Account number is "+rs.getInt("ac_no"));
-						
-						System.out.println("\n1)View Balance");
+						System.out.println("\n");
+						System.out.println("1)View Balance");
 						System.out.println("2)Withdraw");
 						System.out.println("3)Deposit");
 						System.out.println("4)LogOut");
-
 						System.out.print("Enter Choice:");
 						ch = Integer.parseInt(sc.readLine());
 						if (ch == 1) {
@@ -197,8 +193,6 @@ public class bankManagement { // these class provides all
                 if (st.executeUpdate(sql) == 1) {
                     System.out.println("Amount Withdrawn!\n");
                 }
-     
-                
      
                 con.commit();
                 return true;

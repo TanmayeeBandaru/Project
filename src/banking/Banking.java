@@ -9,8 +9,7 @@ public class Banking {
 		throws IOException
 	{
 
-		BufferedReader sc = new BufferedReader(
-			new InputStreamReader(System.in));
+		BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
 		String name = "";
 		int pass_code;
 		int ch;
@@ -27,7 +26,7 @@ public class Banking {
 				switch (ch) {
 				case 1:
 					try {
-						System.out.print("Enter Unique UserName:");
+						System.out.print("Enter UserName:");
 						name = sc.readLine();
 						System.out.print("Enter New Password:");
 						pass_code = Integer.parseInt(sc.readLine());
@@ -42,7 +41,7 @@ public class Banking {
 						}
 					}
 					catch (Exception e) {
-						System.out.println(" ERROR: Enter Valid Data::Insertion Failed!\n");
+						System.out.println("ERROR: Enter Valid Data::Insertion Failed!\n");
 					}
 					break;
 
